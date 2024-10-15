@@ -1,8 +1,21 @@
 body {
-    margin: 0px
+    margin: 0px;
+    background-image: url("../../Resources/Main/bg.png");
 }
 .topbar {
     -webkit-app-region: drag;
     height: 30px;
     background-color: #291b68;
+}
+
+#title {
+    color: whitesmoke;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 100px;
+}
+
+p {
+    color: white;
+    text-align: center;
 }
