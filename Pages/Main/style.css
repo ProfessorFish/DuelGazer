@@ -25,6 +25,11 @@ body {
     font-size: 100px;
 }
 
+p{
+    color: white;
+    text-align: center;
+}
+
 button {
     background-color: grey;
     display: flex;
