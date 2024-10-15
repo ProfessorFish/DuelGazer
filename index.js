@@ -37,7 +37,8 @@ app.whenReady().then(() => {
     let req = await fetch("https://db.ygoprodeck.com/api/v7/cardinfo.php");
     let json = await req.json();
 
-    let stringedJson = JSON.stringify(json.data);
+    let formattedCardData = formatCardData(json.data)
+    let stringedJson = JSON.stringify(formatCardData);
 
     if (!fileExists) {
       fs.writeFileSync("./Data/cards.json", stringedJson);
@@ -59,3 +60,15 @@ app.on('window-all-closed', () => {
     app.quit()
   }
 })
+
+function formatCardData(data) {
+  let out = {};
+
+  for (let card of data) {
+    delete card_prices;
+    for (let cardId of card.card_images) {
+      if(cardId.id !== card.id) out[cardId.id] = card.id;
+    }
+  }
+  return out;
+}
