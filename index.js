@@ -32,8 +32,23 @@ app.whenReady().then(() => {
   })
 
   ipcMain.handle("downloadCards", async () => {
-    let req = await fetch("https://www.google.com");
+    if (!fs.existsSync("./Data")) fs.mkdirSync("./Data");
+    let fileExists = fs.existsSync("./Data/cards.json");
+    let req = await fetch("https://db.ygoprodeck.com/api/v7/cardinfo.php");
     let json = await req.json();
+
+    let stringedJson = JSON.stringify(json.data);
+
+    if (!fileExists) {
+      fs.writeFileSync("./Data/cards.json", stringedJson);
+      return true;
+    }
+
+    let fileContents = fs.readFileSync("./Data/cards.json").toString();
+
+    if (fileContents !== stringedJson) {
+      fs.writeFileSync("./Data/cards.json", stringedJson);
+    }
   })
 })
 
