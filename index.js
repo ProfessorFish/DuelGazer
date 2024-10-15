@@ -3,12 +3,12 @@ const path = require('node:path')
 
 function createWindow () {
   const win = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 550,
+    height: 400,
     icon: "./Resources/Application/DuelGazer.png",
     titleBarStyle: 'hidden',
     titleBarOverlay: {
-        color: "#291b68",
+        color: "#090909",
         symbolColor: "#FFF",
         height: 30
     },
