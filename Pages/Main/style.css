@@ -1,7 +1,10 @@
 body {
     margin: 0px;
     background-image: url("../../Resources/Main/bg.png");
+    position: relative;
+    width: 100vw
 }
+
 .topbar {
     -webkit-app-region: drag;
     height: 30px;
@@ -18,4 +21,20 @@ body {
 p {
     color: white;
     text-align: center;
+}
+
+button {
+    background-color: grey;
+    display: flex;
+    align-items: center;
+    border-radius: 12px;
+    border: none;
+}
+
+.buttoncontainer {
+    display: flex;
+    align-items: center;
+    margin: auto;
+    width: 50%;
+    justify-content: space-evenly;
 }
