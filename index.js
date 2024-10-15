@@ -38,7 +38,7 @@ app.whenReady().then(() => {
     let json = await req.json();
 
     let formattedCardData = formatCardData(json.data)
-    let stringedJson = JSON.stringify(formatCardData);
+    let stringedJson = JSON.stringify(formattedCardData);
 
     if (!fileExists) {
       fs.writeFileSync("./Data/cards.json", stringedJson);
@@ -65,9 +65,10 @@ function formatCardData(data) {
   let out = {};
 
   for (let card of data) {
-    delete card_prices;
+    delete card.card_prices;
     for (let cardId of card.card_images) {
-      if(cardId.id !== card.id) out[cardId.id] = card.id;
+      if (cardId.id !== card.id) out[cardId.id] = card.id;
+      else out[cardId.id] = card;
     }
   }
   return out;
