@@ -49,6 +49,8 @@ app.whenReady().then(() => {
     if (fileContents !== stringedJson) {
       fs.writeFileSync("./Data/cards.json", stringedJson);
     }
+
+    return true;
   })
 })
 
