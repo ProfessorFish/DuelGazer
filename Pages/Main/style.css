@@ -1,7 +1,9 @@
-body, html {
+body,
+html {
     height: 100%;
     width: 100%;
 }
+
 body {
     margin: 0px;
     background-image: url("../../Resources/Main/bg.png");
@@ -25,7 +27,7 @@ body {
     font-size: 100px;
 }
 
-p{
+p {
     color: white;
     text-align: center;
 }
