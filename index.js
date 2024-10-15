@@ -31,27 +31,16 @@ app.whenReady().then(() => {
     }
   })
 
-  ipcMain.handle("downloadCards", async () => {
-    if (!fs.existsSync("./Data")) fs.mkdirSync("./Data");
-    let fileExists = fs.existsSync("./Data/cards.json");
-    let req = await fetch("https://db.ygoprodeck.com/api/v7/cardinfo.php");
-    let json = await req.json();
+  ipcMain.handle("loadCards", async () => {
+    await downloadCards();
+  })
 
-    let formattedCardData = formatCardData(json.data)
-    let stringedJson = JSON.stringify(formattedCardData);
+  ipcMain.handle("loadSearch", async () => {
+    //TODO: Load the search user screen
+  })
 
-    if (!fileExists) {
-      fs.writeFileSync("./Data/cards.json", stringedJson);
-      return true;
-    }
-
-    let fileContents = fs.readFileSync("./Data/cards.json").toString();
-
-    if (fileContents !== stringedJson) {
-      fs.writeFileSync("./Data/cards.json", stringedJson);
-    }
-
-    return true;
+  ipcMain.handle("loadCards", async () => {
+    //TODO: Load the decks screen
   })
 })
 
@@ -60,6 +49,29 @@ app.on('window-all-closed', () => {
     app.quit()
   }
 })
+
+async function downloadCards() {
+  if (!fs.existsSync("./Data")) fs.mkdirSync("./Data");
+  let fileExists = fs.existsSync("./Data/cards.json");
+  let req = await fetch("https://db.ygoprodeck.com/api/v7/cardinfo.php");
+  let json = await req.json();
+
+  let formattedCardData = formatCardData(json.data)
+  let stringedJson = JSON.stringify(formattedCardData);
+
+  if (!fileExists) {
+    fs.writeFileSync("./Data/cards.json", stringedJson);
+    return true;
+  }
+
+  let fileContents = fs.readFileSync("./Data/cards.json").toString();
+
+  if (fileContents !== stringedJson) {
+    fs.writeFileSync("./Data/cards.json", stringedJson);
+  }
+
+  return true;
+}
 
 function formatCardData(data) {
   let out = {};

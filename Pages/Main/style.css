@@ -42,7 +42,7 @@ button {
     width: 30%;
 }
 
-button:hover {
+button:hover:not([disabled]) {
     background-color: aliceblue;
 }
 
