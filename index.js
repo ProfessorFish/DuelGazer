@@ -5,6 +5,7 @@ function createWindow () {
   const win = new BrowserWindow({
     width: 800,
     height: 600,
+    icon: "./Resources/Application/DuelGazer.png",
     titleBarStyle: 'hidden',
     titleBarOverlay: {
         color: "#291b68",
