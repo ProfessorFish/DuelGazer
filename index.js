@@ -1,3 +1,5 @@
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
+
 const { app, BrowserWindow, ipcMain } = require('electron/main');
 const fs = require("node:fs");
 const fetch = require("node-fetch");
@@ -32,7 +34,8 @@ app.whenReady().then(() => {
   })
 
   ipcMain.handle("downloadCards", async () => {
-    
+    let req = await fetch("https://www.google.com");
+    let json = await req.json();
   })
 })
 
