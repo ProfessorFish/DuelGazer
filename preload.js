@@ -1,5 +1,9 @@
-window.addEventListener('DOMContentLoaded', () => {
+const { contextBridge, ipcRenderer } = require('electron')
 
-    let path = window.location.pathname.split("Pages")[1].split("/")[0];
-    require("./Pages/" + path + "/preload.js")
-});
+module.exports = function () {
+  contextBridge.exposeInMainWorld('load', {
+    cards: () => ipcRenderer.invoke("loadCards"),
+    search: () => ipcRenderer.invoke("loadSearch"),
+    decks: () => ipcRenderer.invoke("loadDecks")
+  })
+}

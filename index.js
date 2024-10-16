@@ -15,7 +15,7 @@ function createWindow() {
       height: 30
     },
     webPreferences: {
-      preload: path.join(__dirname, './Pages/Main/preload.js')
+      preload: path.join(__dirname, 'preload.js')
     }
   })
 
