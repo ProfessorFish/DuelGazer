@@ -39,7 +39,7 @@ app.whenReady().then(() => {
     //TODO: Load the search user screen
   })
 
-  ipcMain.handle("loadCards", async () => {
+  ipcMain.handle("loadDecks", async () => {
     //TODO: Load the decks screen
   })
 })
