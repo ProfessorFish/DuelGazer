@@ -32,7 +32,8 @@ app.whenReady().then(() => {
   })
 
   ipcMain.handle("loadCards", async () => {
-    await downloadCards();
+    return true;
+    //await downloadCards();
   })
 
   ipcMain.handle("loadSearch", async () => {
