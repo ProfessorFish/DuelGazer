@@ -52,36 +52,32 @@ app.on('window-all-closed', () => {
 
 async function downloadCards() {
   if (!fs.existsSync("./Data")) fs.mkdirSync("./Data");
-  let fileExists = fs.existsSync("./Data/cards.json");
+  
   let req = await fetch("https://db.ygoprodeck.com/api/v7/cardinfo.php");
   let json = await req.json();
 
-  let formattedCardData = formatCardData(json.data)
-  let stringedJson = JSON.stringify(formattedCardData);
+  let [formattedCardData, formattedNameData] = formatCardData(json.data)
+  let stringedCards = JSON.stringify(formattedCardData);
+  let stringedNames = JSON.stringify(formattedNameData);
 
-  if (!fileExists) {
-    fs.writeFileSync("./Data/cards.json", stringedJson);
-    return true;
-  }
+  fs.writeFileSync("./Data/cards.json", stringedCards);
+  fs.writeFileSync("./Data/names.json", stringedNames);
 
-  let fileContents = fs.readFileSync("./Data/cards.json").toString();
-
-  if (fileContents !== stringedJson) {
-    fs.writeFileSync("./Data/cards.json", stringedJson);
-  }
 
   return true;
 }
 
 function formatCardData(data) {
-  let out = {};
+  let cardOut = {};
+  let nameOut = {};
 
   for (let card of data) {
     delete card.card_prices;
+    nameOut[card.name] = card.id;
     for (let cardId of card.card_images) {
-      if (cardId.id !== card.id) out[cardId.id] = card.id;
-      else out[cardId.id] = card;
+      if (cardId.id !== card.id) cardOut[cardId.id] = card.id;
+      else cardOut[cardId.id] = card;
     }
   }
-  return out;
+  return [cardOut, nameOut];
 }
