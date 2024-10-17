@@ -3,6 +3,11 @@ const fs = require("node:fs");
 const fetch = require("node-fetch");
 const path = require('node:path');
 
+let cards;
+if (fs.existsSync("./Data/cards.json")) {
+  cards = JSON.parse(fs.readFileSync("./Data/cards.json"));
+}
+
 function createWindow() {
   const win = new BrowserWindow({
     width: 550,
@@ -32,6 +37,7 @@ app.whenReady().then(() => {
   })
 
   ipcMain.handle("loadCards", async () => {
+    cards = JSON.parse(fs.readFileSync("./Data/cards.json"));
     return true;
     //await downloadCards();
   })
@@ -45,7 +51,6 @@ app.whenReady().then(() => {
   })
 
   ipcMain.handle("searchCards", async (event, searchTerm) => {
-    let cards = JSON.parse(fs.readFileSync("./Data/cards.json"));
     let map = JSON.parse(fs.readFileSync("./Data/names.json"))
     let names = Object.keys(map);
     let ids = Object.values(map);
@@ -57,6 +62,17 @@ app.whenReady().then(() => {
     ).concat(ids.filter(
       k => k.toString().includes(searchTerm)
     ).map(k => fetchCard(k, cards)));
+  })
+
+  ipcMain.handle("loadCard", async (event, cardId) => {
+    let card = fetchCard(cardId, cards);
+    if (!fs.existsSync("./Resources/Cards/" + cardId + ".jpg")) {
+      let req = await fetch(card.card_images.find(k => k.id === cardId).image_url);
+      req.body.pipe(fs.createWriteStream(cardId + ".jpg"))
+      //fs.writeFileSync("./Resources/Cards/" + cardId + ".jpg", await req.buffer());
+    }
+
+    return card;
   })
 })
 
