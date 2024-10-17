@@ -6,9 +6,7 @@ const cardContainer = document.getElementsByClassName("cardcontainer")[0];
 searchField.onsubmit = async function (event) {
     event.preventDefault();
 
-    for(let child of cardContainer.childNodes){
-        child.remove();
-    }
+    cardContainer.innerHTML = "";
 
     let cards = await window.search.cards(event.target.searchinput.value);
 
