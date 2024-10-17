@@ -45,7 +45,6 @@ app.whenReady().then(() => {
   })
 
   ipcMain.handle("searchCards", async (event, searchTerm) => {
-    console.log(searchTerm)
     let cards = JSON.parse(fs.readFileSync("./Data/cards.json"));
     let map = JSON.parse(fs.readFileSync("./Data/names.json"))
     let names = Object.keys(map);
