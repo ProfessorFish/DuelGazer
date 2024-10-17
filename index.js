@@ -61,7 +61,7 @@ app.whenReady().then(() => {
       k => cards[map[k]]
     ).concat(ids.filter(
       k => k.toString().includes(searchTerm)
-    ).map(k => fetchCard(k, cards)));
+    ).map(k => fetchCard(k, cards))).slice(0, 20);
   })
 
   ipcMain.handle("loadCard", async (event, cardId) => {
