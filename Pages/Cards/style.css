@@ -18,7 +18,7 @@ html {
     background-size: cover;
 }
 
-.topbar {
+.topbar:has(button) {
     -webkit-app-region: drag;
     height: 30px;
     background-image: url(../../Resources/Main/topbar.png);
@@ -50,10 +50,7 @@ button {
     border: none;
     height: 30px;
     top: 0;
-}
-
-button:hover:not([disabled]) {
-    background-color: aliceblue;
+    z-index: 10001;
 }
 
 .buttoncontainer {

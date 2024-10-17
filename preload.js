@@ -10,3 +10,11 @@ contextBridge.exposeInMainWorld('load', {
 contextBridge.exposeInMainWorld('search', {
     cards: (searchTerm, page = 0) => ipcRenderer.invoke("searchCards", searchTerm, page)
 })
+
+window.addEventListener("DOMContentLoaded", () => {
+    let ele = document.getElementById("homebutton");
+    console.log(ele)
+    if (!ele) return;
+
+    ele.onclick = () => {console.log("clicked"); window.location.href = "./Main/index.html"}
+})
