@@ -6,6 +6,9 @@ searchField.onsubmit = async function (event) {
 
     let cards = await window.search.cards(event.target.searchinput.value);
 
-    let card = await window.load.card(84013237);
-    console.log(card);
+    for (let card of cards) {
+        for(let cardImage of card.card_images) {
+            let card = await window.load.card(cardImage.id);
+        }   
+    }
 }
