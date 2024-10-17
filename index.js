@@ -43,6 +43,22 @@ app.whenReady().then(() => {
   ipcMain.handle("loadDecks", async () => {
     //TODO: Load the decks screen
   })
+
+  ipcMain.handle("searchCards", async (event, searchTerm) => {
+    console.log(searchTerm)
+    let cards = JSON.parse(fs.readFileSync("./Data/cards.json"));
+    let map = JSON.parse(fs.readFileSync("./Data/names.json"))
+    let names = Object.keys(map);
+    let ids = Object.values(map);
+
+    return names.filter(
+      k => k.toLowerCase().includes(searchTerm.toLowerCase())
+    ).map(
+      k => cards[map[k]]
+    ).concat(ids.filter(
+      k => k.toString().includes(searchTerm)
+    ).map(k => fetchCard(k, cards)));
+  })
 })
 
 app.on('window-all-closed', () => {
@@ -51,9 +67,19 @@ app.on('window-all-closed', () => {
   }
 })
 
+function fetchCard(id, cards) {
+  let cardData = cards[id];
+
+  while (typeof cardData === "number") {
+    cardData = cards[cardData];
+  }
+
+  return cardData;
+}
+
 async function downloadCards() {
   if (!fs.existsSync("./Data")) fs.mkdirSync("./Data");
-  
+
   let req = await fetch("https://db.ygoprodeck.com/api/v7/cardinfo.php");
   let json = await req.json();
 

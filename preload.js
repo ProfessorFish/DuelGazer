@@ -7,5 +7,5 @@ contextBridge.exposeInMainWorld('load', {
 })
 
 contextBridge.exposeInMainWorld('search', {
-    cards: () => ipcRenderer.invoke("searchCards")
+    cards: (searchTerm) => ipcRenderer.invoke("searchCards", searchTerm)
 })
