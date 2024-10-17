@@ -8,7 +8,7 @@ searchField.onsubmit = async function (event) {
 
     for (let card of cards) {
         for(let cardImage of card.card_images) {
-            let card = await window.load.card(cardImage.id);
+            let card = await window.load.card(cardImage.id, 0);
         }   
     }
 }

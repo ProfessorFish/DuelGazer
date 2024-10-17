@@ -8,5 +8,5 @@ contextBridge.exposeInMainWorld('load', {
 })
 
 contextBridge.exposeInMainWorld('search', {
-    cards: (searchTerm) => ipcRenderer.invoke("searchCards", searchTerm)
+    cards: (searchTerm, page = 0) => ipcRenderer.invoke("searchCards", searchTerm, page)
 })
