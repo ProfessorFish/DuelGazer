@@ -68,8 +68,7 @@ app.whenReady().then(() => {
     let card = fetchCard(cardId, cards);
     if (!fs.existsSync("./Resources/Cards/" + cardId + ".jpg")) {
       let req = await fetch(card.card_images.find(k => k.id === cardId).image_url);
-      req.body.pipe(fs.createWriteStream(cardId + ".jpg"))
-      //fs.writeFileSync("./Resources/Cards/" + cardId + ".jpg", await req.buffer());
+      fs.writeFileSync("./Resources/Cards/" + cardId + ".jpg", await req.buffer());
     }
 
     return card;
