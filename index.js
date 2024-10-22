@@ -48,19 +48,22 @@ app.whenReady().then(() => {
   ipcMain.handle("loadDecks", async () => {
     //TODO: Load the decks screen
   })
-
+  
   ipcMain.handle("searchCards", async (event, searchTerm, page) => {
     let map = JSON.parse(fs.readFileSync("./Data/names.json"))
     let names = Object.keys(map);
     let ids = Object.values(map);
 
-    return names.filter(
+    let foundCards = names.filter(
       k => k.toLowerCase().includes(searchTerm.toLowerCase())
     ).map(
       k => cards[map[k]]
     ).concat(ids.filter(
       k => k.toString().includes(searchTerm)
-    ).map(k => fetchCard(k, cards))).slice(20 * page, 20 * page + 20);
+    ).map(k => fetchCard(k, cards)))
+
+    //Cards, totalCards, totalPages
+    return [foundCards.slice(20 * page, 20 * page + 20), foundCards.length, Math.ceil(foundCards.length / 20)];
   })
 
   ipcMain.handle("loadCard", async (event, cardId) => {
