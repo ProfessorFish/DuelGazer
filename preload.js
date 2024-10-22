@@ -16,5 +16,5 @@ window.addEventListener("DOMContentLoaded", () => {
     console.log(ele)
     if (!ele) return;
 
-    ele.onclick = () => {console.log("clicked"); window.location.href = "./Main/index.html"}
+    ele.onclick = () => {console.log("clicked"); window.location.href = "../Main/index.html"}
 })
