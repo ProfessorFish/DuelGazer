@@ -13,8 +13,7 @@ contextBridge.exposeInMainWorld('search', {
 
 window.addEventListener("DOMContentLoaded", () => {
     let ele = document.getElementById("homebutton");
-    console.log(ele)
     if (!ele) return;
 
-    ele.onclick = () => {console.log("clicked"); window.location.href = "../Main/index.html"}
+    ele.onclick = () => window.location.href = "../Main/index.html"
 })
