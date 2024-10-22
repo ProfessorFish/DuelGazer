@@ -35,7 +35,7 @@ searchField.onsubmit = async function (event) {
 
 async function loadCards(searchTerm, page) {
     if (loadButton) observer.unobserve(loadButton);
-    if (page >= pages) return;
+    if (page >= pages && pages !== 0) return;
 
     let [cards, totalCards, totalPages] = await window.search.cards(searchTerm, page);
     pages = totalPages;
@@ -44,11 +44,12 @@ async function loadCards(searchTerm, page) {
             let card = await window.load.card(cardImage.id, 0);
 
             let divEle = document.createElement("div");
-            divEle.innerHTML = `<img src="../../Resources/Cards/${cardImage.id}.jpg">`
+            divEle.innerHTML = `<img src="../../Resources/Cards/${cardImage.id}.jpg"><p class="cardText">${card.desc.replace("\n", "<br><br>")}</p>`
             divEle.classList.add("card")
             cardContainer.appendChild(divEle)
         }
     }
-    loadButton = cardContainer.lastChild
+
+    loadButton = cardContainer.lastChild;
     observer.observe(loadButton);
 }
