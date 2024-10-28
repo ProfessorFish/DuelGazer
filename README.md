@@ -1,2 +1,2 @@
 # DuelGazer
- Yu gi oh companion for tracking stats and decks!
+ Yu gi oh master duel companion for tracking stats and decks!
