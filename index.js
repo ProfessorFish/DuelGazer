@@ -37,8 +37,8 @@ app.whenReady().then(() => {
   })
 
   ipcMain.handle("loadCards", async () => {
-    cards = JSON.parse(fs.readFileSync("./Data/cards.json"));
     await downloadCards();
+    cards = JSON.parse(fs.readFileSync("./Data/cards.json"));
   })
 
   ipcMain.handle("loadSearch", async () => {
